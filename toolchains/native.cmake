@@ -7,3 +7,5 @@
 # when doing native development, specifying toolchain components is not necessary.
 # the CMAKE_CROSSCOMPILING variable can be used to detect this, with some caveats.
 # refer to the cmake documentation of CMAKE_CROSSCOMPILING for further details.
+
+set(CMAKE_LIBRARY_ARCHITECTURE "arm64" CACHE STRING "Native architecture.")
