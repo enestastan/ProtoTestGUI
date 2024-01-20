@@ -1,3 +1,5 @@
+#include "UnixSocket/UnixSocketServer.h"
+
 #include <stdio.h>
 #include "addressbook.pb.h"
 #include <fstream>
