@@ -237,12 +237,12 @@ protobuf_generate(
 ## custom targets #############################################################
 ###############################################################################
 
-if(PROJECT_IS_TOP_LEVEL OR NOT has_parent_dir)
-	add_custom_target(graphviz_${PROJECT_NAME} ALL
-		COMMAND ${CMAKE_COMMAND} "--graphviz=${PROJECT_BINARY_DIR}/dep_graphs/dots/deps.dot" "${PROJECT_SOURCE_DIR}"
-		COMMAND bash -c "dot -Tsvg -O $(find ${PROJECT_BINARY_DIR}/dep_graphs/dots/ -type f ! -name *.svg)" VERBATIM
-		COMMAND ${CMAKE_COMMAND} -E make_directory "${PROJECT_BINARY_DIR}/dep_graphs/svgs"
-		COMMAND bash -c "mv ${PROJECT_BINARY_DIR}/dep_graphs/dots/*.svg ${PROJECT_BINARY_DIR}/dep_graphs/svgs/" VERBATIM
-		WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
-	)
-endif()
+# if(PROJECT_IS_TOP_LEVEL OR NOT has_parent_dir)
+# 	add_custom_target(graphviz_${PROJECT_NAME} ALL
+# 		COMMAND ${CMAKE_COMMAND} "--graphviz=${PROJECT_BINARY_DIR}/dep_graphs/dots/deps.dot" "${PROJECT_SOURCE_DIR}"
+# 		COMMAND bash -c "dot -Tsvg -O $(find ${PROJECT_BINARY_DIR}/dep_graphs/dots/ -type f ! -name *.svg)" VERBATIM
+# 		COMMAND ${CMAKE_COMMAND} -E make_directory "${PROJECT_BINARY_DIR}/dep_graphs/svgs"
+# 		COMMAND bash -c "mv ${PROJECT_BINARY_DIR}/dep_graphs/dots/*.svg ${PROJECT_BINARY_DIR}/dep_graphs/svgs/" VERBATIM
+# 		WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
+# 	)
+# endif()
