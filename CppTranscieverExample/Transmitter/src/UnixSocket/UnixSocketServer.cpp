@@ -18,9 +18,9 @@ bool UnixSocketServer::initialize() {
 	}
 
 	m_serverAddress.sun_family = AF_UNIX;
-	strcpy( m_serverAddress.sun_path, m_SOCKET_FILE_PATH.c_str() );
-	unlink(m_serverAddress.sun_path);
-	uint32_t uAddressLength = strlen(m_serverAddress.sun_path) + static_cast<uint32_t>(sizeof(m_serverAddress.sun_family));
+	strncpy( m_serverAddress.sun_path, m_SOCKET_FILE_PATH.c_str(), m_SOCKET_FILE_PATH.size() );
+	unlink(m_SOCKET_FILE_PATH.c_str());
+	uint32_t uAddressLength = m_SOCKET_FILE_PATH.size() + sizeof(m_serverAddress.sun_len)+ sizeof(m_serverAddress.sun_family);
 
 	if( bind(m_serverSocket, (struct sockaddr*)&m_serverAddress, uAddressLength) != 0) {
 		printf("Error on binding socket \n");
@@ -36,16 +36,16 @@ bool UnixSocketServer::initialize() {
 }
 
 bool UnixSocketServer::acceptConnection() {
-		printf("Waiting for connection.... \n");
+	printf("Waiting for connection.... \n");
 
-		unsigned int nSocketAddressLength = 0;
-		if( (m_clientSocket = accept(m_serverSocket, (struct sockaddr*)&m_clientAddress, &nSocketAddressLength)) == -1 ) {
-			printf("Error on accept() call \n");
-			return false;
-		}
+	unsigned int nSocketAddressLength = 0;
+	if( (m_clientSocket = accept(m_serverSocket, (struct sockaddr*)&m_clientAddress, &nSocketAddressLength)) == -1 ) {
+		printf("Error on accept() call \n");
+		return false;
+	}
 
-		printf("Client with address %s connected.", m_clientAddress.sun_path);
-		return true;
+	printf("Client connected.\n");
+	return true;
 }
 
 bool UnixSocketServer::send(std::uint8_t* pBuffer, std::size_t uSize) {
