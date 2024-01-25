@@ -204,10 +204,28 @@ class ParserEntry final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kLenStringFieldNumber = 3,
     kFixed64DoubleFieldNumber = 2,
-    kUIntegerFieldNumber = 1,
-    kFixed32FloatFieldNumber = 3,
+    kVarintIntegerFieldNumber = 1,
+    kFixed32FloatFieldNumber = 4,
   };
+  // optional string lenString = 3;
+  bool has_lenstring() const;
+  void clear_lenstring() ;
+  const std::string& lenstring() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_lenstring(Arg_&& arg, Args_... args);
+  std::string* mutable_lenstring();
+  PROTOBUF_NODISCARD std::string* release_lenstring();
+  void set_allocated_lenstring(std::string* value);
+
+  private:
+  const std::string& _internal_lenstring() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_lenstring(
+      const std::string& value);
+  std::string* _internal_mutable_lenstring();
+
+  public:
   // optional fixed64 fixed64Double = 2;
   bool has_fixed64double() const;
   void clear_fixed64double() ;
@@ -219,18 +237,18 @@ class ParserEntry final :
   void _internal_set_fixed64double(::uint64_t value);
 
   public:
-  // optional int32 uInteger = 1;
-  bool has_uinteger() const;
-  void clear_uinteger() ;
-  ::int32_t uinteger() const;
-  void set_uinteger(::int32_t value);
+  // optional int32 varintInteger = 1;
+  bool has_varintinteger() const;
+  void clear_varintinteger() ;
+  ::int32_t varintinteger() const;
+  void set_varintinteger(::int32_t value);
 
   private:
-  ::int32_t _internal_uinteger() const;
-  void _internal_set_uinteger(::int32_t value);
+  ::int32_t _internal_varintinteger() const;
+  void _internal_set_varintinteger(::int32_t value);
 
   public:
-  // optional fixed32 fixed32Float = 3;
+  // optional fixed32 fixed32Float = 4;
   bool has_fixed32float() const;
   void clear_fixed32float() ;
   ::uint32_t fixed32float() const;
@@ -247,8 +265,8 @@ class ParserEntry final :
 
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      2, 3, 0,
-      0, 2>
+      2, 4, 0,
+      36, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
@@ -266,8 +284,9 @@ class ParserEntry final :
                               ::google::protobuf::Arena* arena, const Impl_& from);
     ::google::protobuf::internal::HasBits<1> _has_bits_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr lenstring_;
     ::uint64_t fixed64double_;
-    ::int32_t uinteger_;
+    ::int32_t varintinteger_;
     ::uint32_t fixed32float_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -291,43 +310,43 @@ class ParserEntry final :
 
 // ParserEntry
 
-// optional int32 uInteger = 1;
-inline bool ParserEntry::has_uinteger() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+// optional int32 varintInteger = 1;
+inline bool ParserEntry::has_varintinteger() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline void ParserEntry::clear_uinteger() {
+inline void ParserEntry::clear_varintinteger() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_.uinteger_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_.varintinteger_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline ::int32_t ParserEntry::uinteger() const {
-  // @@protoc_insertion_point(field_get:Sample.ParserEntry.uInteger)
-  return _internal_uinteger();
+inline ::int32_t ParserEntry::varintinteger() const {
+  // @@protoc_insertion_point(field_get:Sample.ParserEntry.varintInteger)
+  return _internal_varintinteger();
 }
-inline void ParserEntry::set_uinteger(::int32_t value) {
-  _internal_set_uinteger(value);
-  // @@protoc_insertion_point(field_set:Sample.ParserEntry.uInteger)
+inline void ParserEntry::set_varintinteger(::int32_t value) {
+  _internal_set_varintinteger(value);
+  // @@protoc_insertion_point(field_set:Sample.ParserEntry.varintInteger)
 }
-inline ::int32_t ParserEntry::_internal_uinteger() const {
+inline ::int32_t ParserEntry::_internal_varintinteger() const {
   PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  return _impl_.uinteger_;
+  return _impl_.varintinteger_;
 }
-inline void ParserEntry::_internal_set_uinteger(::int32_t value) {
+inline void ParserEntry::_internal_set_varintinteger(::int32_t value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000002u;
-  _impl_.uinteger_ = value;
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.varintinteger_ = value;
 }
 
 // optional fixed64 fixed64Double = 2;
 inline bool ParserEntry::has_fixed64double() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline void ParserEntry::clear_fixed64double() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.fixed64double_ = ::uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline ::uint64_t ParserEntry::fixed64double() const {
   // @@protoc_insertion_point(field_get:Sample.ParserEntry.fixed64Double)
@@ -343,19 +362,90 @@ inline ::uint64_t ParserEntry::_internal_fixed64double() const {
 }
 inline void ParserEntry::_internal_set_fixed64double(::uint64_t value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   _impl_.fixed64double_ = value;
 }
 
-// optional fixed32 fixed32Float = 3;
+// optional string lenString = 3;
+inline bool ParserEntry::has_lenstring() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void ParserEntry::clear_lenstring() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.lenstring_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& ParserEntry::lenstring() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:Sample.ParserEntry.lenString)
+  return _internal_lenstring();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void ParserEntry::set_lenstring(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.lenstring_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:Sample.ParserEntry.lenString)
+}
+inline std::string* ParserEntry::mutable_lenstring() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_lenstring();
+  // @@protoc_insertion_point(field_mutable:Sample.ParserEntry.lenString)
+  return _s;
+}
+inline const std::string& ParserEntry::_internal_lenstring() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.lenstring_.Get();
+}
+inline void ParserEntry::_internal_set_lenstring(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.lenstring_.Set(value, GetArena());
+}
+inline std::string* ParserEntry::_internal_mutable_lenstring() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.lenstring_.Mutable( GetArena());
+}
+inline std::string* ParserEntry::release_lenstring() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:Sample.ParserEntry.lenString)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.lenstring_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.lenstring_.Set("", GetArena());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void ParserEntry::set_allocated_lenstring(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.lenstring_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.lenstring_.IsDefault()) {
+          _impl_.lenstring_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Sample.ParserEntry.lenString)
+}
+
+// optional fixed32 fixed32Float = 4;
 inline bool ParserEntry::has_fixed32float() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline void ParserEntry::clear_fixed32float() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.fixed32float_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline ::uint32_t ParserEntry::fixed32float() const {
   // @@protoc_insertion_point(field_get:Sample.ParserEntry.fixed32Float)
@@ -371,7 +461,7 @@ inline ::uint32_t ParserEntry::_internal_fixed32float() const {
 }
 inline void ParserEntry::_internal_set_fixed32float(::uint32_t value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.fixed32float_ = value;
 }
 

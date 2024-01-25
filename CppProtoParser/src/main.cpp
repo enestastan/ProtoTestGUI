@@ -8,8 +8,9 @@ int main()
 	Sample::ParserEntry message;
 	uint8_t buffer[BUFFER_SIZE];
 
-	message.set_uinteger(150);
+	message.set_varintinteger(150);
 	message.set_fixed64double(151);
+	message.set_lenstring("proto");
 	message.set_fixed32float(152);
 
 	message.SerializeToArray(buffer, BUFFER_SIZE);

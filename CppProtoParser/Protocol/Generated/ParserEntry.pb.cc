@@ -25,8 +25,11 @@ namespace Sample {
 inline constexpr ParserEntry::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
+        lenstring_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
         fixed64double_{::uint64_t{0u}},
-        uinteger_{0},
+        varintinteger_{0},
         fixed32float_{0u} {}
 
 template <typename>
@@ -58,34 +61,37 @@ const ::uint32_t TableStruct_ParserEntry_2eproto::offsets[] PROTOBUF_SECTION_VAR
     ~0u,  // no _inlined_string_donated_
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::Sample::ParserEntry, _impl_.uinteger_),
+    PROTOBUF_FIELD_OFFSET(::Sample::ParserEntry, _impl_.varintinteger_),
     PROTOBUF_FIELD_OFFSET(::Sample::ParserEntry, _impl_.fixed64double_),
+    PROTOBUF_FIELD_OFFSET(::Sample::ParserEntry, _impl_.lenstring_),
     PROTOBUF_FIELD_OFFSET(::Sample::ParserEntry, _impl_.fixed32float_),
+    2,
     1,
     0,
-    2,
+    3,
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-        {0, 11, -1, sizeof(::Sample::ParserEntry)},
+        {0, 12, -1, sizeof(::Sample::ParserEntry)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
     &::Sample::_ParserEntry_default_instance_._instance,
 };
 const char descriptor_table_protodef_ParserEntry_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-    "\n\021ParserEntry.proto\022\006Sample\"\213\001\n\013ParserEn"
-    "try\022\025\n\010uInteger\030\001 \001(\005H\000\210\001\001\022\032\n\rfixed64Dou"
-    "ble\030\002 \001(\006H\001\210\001\001\022\031\n\014fixed32Float\030\003 \001(\007H\002\210\001"
-    "\001B\013\n\t_uIntegerB\020\n\016_fixed64DoubleB\017\n\r_fix"
-    "ed32Floatb\006proto3"
+    "\n\021ParserEntry.proto\022\006Sample\"\273\001\n\013ParserEn"
+    "try\022\032\n\rvarintInteger\030\001 \001(\005H\000\210\001\001\022\032\n\rfixed"
+    "64Double\030\002 \001(\006H\001\210\001\001\022\026\n\tlenString\030\003 \001(\tH\002"
+    "\210\001\001\022\031\n\014fixed32Float\030\004 \001(\007H\003\210\001\001B\020\n\016_varin"
+    "tIntegerB\020\n\016_fixed64DoubleB\014\n\n_lenString"
+    "B\017\n\r_fixed32Floatb\006proto3"
 };
 static ::absl::once_flag descriptor_table_ParserEntry_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_ParserEntry_2eproto = {
     false,
     false,
-    177,
+    225,
     descriptor_table_protodef_ParserEntry_2eproto,
     "ParserEntry.proto",
     &descriptor_table_ParserEntry_2eproto_once,
@@ -125,14 +131,17 @@ class ParserEntry::_Internal {
   using HasBits = decltype(std::declval<ParserEntry>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_._has_bits_);
-  static void set_has_uinteger(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+  static void set_has_varintinteger(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_fixed64double(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_lenstring(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_fixed32float(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
 };
 
@@ -141,15 +150,37 @@ ParserEntry::ParserEntry(::google::protobuf::Arena* arena)
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:Sample.ParserEntry)
 }
+inline PROTOBUF_NDEBUG_INLINE ParserEntry::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        lenstring_(arena, from.lenstring_) {}
+
 ParserEntry::ParserEntry(
-    ::google::protobuf::Arena* arena, const ParserEntry& from)
-    : ParserEntry(arena) {
-  MergeFrom(from);
+    ::google::protobuf::Arena* arena,
+    const ParserEntry& from)
+    : ::google::protobuf::Message(arena) {
+  ParserEntry* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, fixed64double_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, fixed64double_),
+           offsetof(Impl_, fixed32float_) -
+               offsetof(Impl_, fixed64double_) +
+               sizeof(Impl_::fixed32float_));
+
+  // @@protoc_insertion_point(copy_constructor:Sample.ParserEntry)
 }
 inline PROTOBUF_NDEBUG_INLINE ParserEntry::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
+      : _cached_size_{0},
+        lenstring_(arena) {}
 
 inline void ParserEntry::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
@@ -167,6 +198,7 @@ ParserEntry::~ParserEntry() {
 }
 inline void ParserEntry::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.lenstring_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -178,7 +210,10 @@ PROTOBUF_NOINLINE void ParserEntry::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000001u) {
+    _impl_.lenstring_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x0000000eu) {
     ::memset(&_impl_.fixed64double_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.fixed32float_) -
         reinterpret_cast<char*>(&_impl_.fixed64double_)) + sizeof(_impl_.fixed32float_));
@@ -195,45 +230,53 @@ const char* ParserEntry::_InternalParse(
 
 
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 3, 0, 0, 2> ParserEntry::_table_ = {
+const ::_pbi::TcParseTable<2, 4, 0, 36, 2> ParserEntry::_table_ = {
   {
     PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_._has_bits_),
     0, // no _extensions_
-    3, 24,  // max_field_number, fast_idx_mask
+    4, 24,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967288,  // skipmap
+    4294967280,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    3,  // num_field_entries
+    4,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     &_ParserEntry_default_instance_._instance,
     ::_pbi::TcParser::GenericFallback,  // fallback
   }, {{
-    {::_pbi::TcParser::MiniParse, {}},
-    // optional int32 uInteger = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ParserEntry, _impl_.uinteger_), 1>(),
-     {8, 1, 0, PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.uinteger_)}},
+    // optional fixed32 fixed32Float = 4;
+    {::_pbi::TcParser::FastF32S1,
+     {37, 3, 0, PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed32float_)}},
+    // optional int32 varintInteger = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ParserEntry, _impl_.varintinteger_), 2>(),
+     {8, 2, 0, PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.varintinteger_)}},
     // optional fixed64 fixed64Double = 2;
     {::_pbi::TcParser::FastF64S1,
-     {17, 0, 0, PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed64double_)}},
-    // optional fixed32 fixed32Float = 3;
-    {::_pbi::TcParser::FastF32S1,
-     {29, 2, 0, PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed32float_)}},
+     {17, 1, 0, PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed64double_)}},
+    // optional string lenString = 3;
+    {::_pbi::TcParser::FastUS1,
+     {26, 0, 0, PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.lenstring_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // optional int32 uInteger = 1;
-    {PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.uinteger_), _Internal::kHasBitsOffset + 1, 0,
+    // optional int32 varintInteger = 1;
+    {PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.varintinteger_), _Internal::kHasBitsOffset + 2, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
     // optional fixed64 fixed64Double = 2;
-    {PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed64double_), _Internal::kHasBitsOffset + 0, 0,
+    {PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed64double_), _Internal::kHasBitsOffset + 1, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kFixed64)},
-    // optional fixed32 fixed32Float = 3;
-    {PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed32float_), _Internal::kHasBitsOffset + 2, 0,
+    // optional string lenString = 3;
+    {PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.lenstring_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // optional fixed32 fixed32Float = 4;
+    {PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed32float_), _Internal::kHasBitsOffset + 3, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kFixed32)},
   }},
   // no aux_entries
   {{
+    "\22\0\0\11\0\0\0\0"
+    "Sample.ParserEntry"
+    "lenString"
   }},
 };
 
@@ -245,25 +288,33 @@ const ::_pbi::TcParseTable<2, 3, 0, 0, 2> ParserEntry::_table_ = {
   (void)cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // optional int32 uInteger = 1;
-  if (cached_has_bits & 0x00000002u) {
+  // optional int32 varintInteger = 1;
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
         WriteInt32ToArrayWithField<1>(
-            stream, this->_internal_uinteger(), target);
+            stream, this->_internal_varintinteger(), target);
   }
 
   // optional fixed64 fixed64Double = 2;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteFixed64ToArray(
         2, this->_internal_fixed64double(), target);
   }
 
-  // optional fixed32 fixed32Float = 3;
-  if (cached_has_bits & 0x00000004u) {
+  // optional string lenString = 3;
+  if (cached_has_bits & 0x00000001u) {
+    const std::string& _s = this->_internal_lenstring();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "Sample.ParserEntry.lenString");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
+  }
+
+  // optional fixed32 fixed32Float = 4;
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteFixed32ToArray(
-        3, this->_internal_fixed32float(), target);
+        4, this->_internal_fixed32float(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -284,20 +335,26 @@ const ::_pbi::TcParseTable<2, 3, 0, 0, 2> ParserEntry::_table_ = {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional fixed64 fixed64Double = 2;
+  if (cached_has_bits & 0x0000000fu) {
+    // optional string lenString = 3;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_lenstring());
+    }
+
+    // optional fixed64 fixed64Double = 2;
+    if (cached_has_bits & 0x00000002u) {
       total_size += 9;
     }
 
-    // optional int32 uInteger = 1;
-    if (cached_has_bits & 0x00000002u) {
+    // optional int32 varintInteger = 1;
+    if (cached_has_bits & 0x00000004u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
-          this->_internal_uinteger());
+          this->_internal_varintinteger());
     }
 
-    // optional fixed32 fixed32Float = 3;
-    if (cached_has_bits & 0x00000004u) {
+    // optional fixed32 fixed32Float = 4;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 5;
     }
 
@@ -322,14 +379,17 @@ void ParserEntry::MergeImpl(::google::protobuf::Message& to_msg, const ::google:
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_impl_.fixed64double_ = from._impl_.fixed64double_;
+      _this->_internal_set_lenstring(from._internal_lenstring());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_impl_.uinteger_ = from._impl_.uinteger_;
+      _this->_impl_.fixed64double_ = from._impl_.fixed64double_;
     }
     if (cached_has_bits & 0x00000004u) {
+      _this->_impl_.varintinteger_ = from._impl_.varintinteger_;
+    }
+    if (cached_has_bits & 0x00000008u) {
       _this->_impl_.fixed32float_ = from._impl_.fixed32float_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -353,8 +413,11 @@ PROTOBUF_NOINLINE bool ParserEntry::IsInitialized() const {
 }
 void ParserEntry::InternalSwap(ParserEntry* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.lenstring_, &other->_impl_.lenstring_, arena);
   ::google::protobuf::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ParserEntry, _impl_.fixed32float_)
       + sizeof(ParserEntry::_impl_.fixed32float_)
