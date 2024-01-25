@@ -1,0 +1,8 @@
+// [START declaration]
+syntax = "proto3";
+package Sample;
+// [END declaration]
+
+message ParserEntry {
+  optional int32 uInteger = 1;
+}

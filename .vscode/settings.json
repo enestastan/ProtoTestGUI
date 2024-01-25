@@ -1,5 +1,5 @@
 {
-	"cmake.sourceDirectory": "/Users/enestastan/Documents/Projects/ProtoTestGUI/CppTranscieverExample",
+	"cmake.sourceDirectory": "${workspaceFolder}/CppProtoParser",
 	"files.associations": {
 		"algorithm": "cpp",
 		"cctype": "cpp",

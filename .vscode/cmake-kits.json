@@ -1,0 +1,22 @@
+[
+    {
+        "name": "native",
+        "toolchainFile": "toolchains/native.cmake",
+        "isTrusted": true
+    },
+    {
+        "name": "x86_64-linux-gnu",
+        "toolchainFile": "toolchains/x86_64-linux-gnu.cmake",
+        "isTrusted": true
+    },
+    {
+        "name": "arm-linux-gnueabi",
+        "toolchainFile": "toolchains/arm-linux-gnueabi.cmake",
+        "isTrusted": true
+    },
+    {
+        "name": "arm-linux-gnueabihf",
+        "toolchainFile": "toolchains/arm-linux-gnueabihf.cmake",
+        "isTrusted": true
+    }
+]
