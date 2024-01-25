@@ -204,8 +204,21 @@ class ParserEntry final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kFixed64DoubleFieldNumber = 2,
     kUIntegerFieldNumber = 1,
+    kFixed32FloatFieldNumber = 3,
   };
+  // optional fixed64 fixed64Double = 2;
+  bool has_fixed64double() const;
+  void clear_fixed64double() ;
+  ::uint64_t fixed64double() const;
+  void set_fixed64double(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_fixed64double() const;
+  void _internal_set_fixed64double(::uint64_t value);
+
+  public:
   // optional int32 uInteger = 1;
   bool has_uinteger() const;
   void clear_uinteger() ;
@@ -217,13 +230,24 @@ class ParserEntry final :
   void _internal_set_uinteger(::int32_t value);
 
   public:
+  // optional fixed32 fixed32Float = 3;
+  bool has_fixed32float() const;
+  void clear_fixed32float() ;
+  ::uint32_t fixed32float() const;
+  void set_fixed32float(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_fixed32float() const;
+  void _internal_set_fixed32float(::uint32_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:Sample.ParserEntry)
  private:
   class _Internal;
 
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 0,
+      2, 3, 0,
       0, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
@@ -242,7 +266,9 @@ class ParserEntry final :
                               ::google::protobuf::Arena* arena, const Impl_& from);
     ::google::protobuf::internal::HasBits<1> _has_bits_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::uint64_t fixed64double_;
     ::int32_t uinteger_;
+    ::uint32_t fixed32float_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -267,13 +293,13 @@ class ParserEntry final :
 
 // optional int32 uInteger = 1;
 inline bool ParserEntry::has_uinteger() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline void ParserEntry::clear_uinteger() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.uinteger_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline ::int32_t ParserEntry::uinteger() const {
   // @@protoc_insertion_point(field_get:Sample.ParserEntry.uInteger)
@@ -289,8 +315,64 @@ inline ::int32_t ParserEntry::_internal_uinteger() const {
 }
 inline void ParserEntry::_internal_set_uinteger(::int32_t value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   _impl_.uinteger_ = value;
+}
+
+// optional fixed64 fixed64Double = 2;
+inline bool ParserEntry::has_fixed64double() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void ParserEntry::clear_fixed64double() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.fixed64double_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline ::uint64_t ParserEntry::fixed64double() const {
+  // @@protoc_insertion_point(field_get:Sample.ParserEntry.fixed64Double)
+  return _internal_fixed64double();
+}
+inline void ParserEntry::set_fixed64double(::uint64_t value) {
+  _internal_set_fixed64double(value);
+  // @@protoc_insertion_point(field_set:Sample.ParserEntry.fixed64Double)
+}
+inline ::uint64_t ParserEntry::_internal_fixed64double() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.fixed64double_;
+}
+inline void ParserEntry::_internal_set_fixed64double(::uint64_t value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.fixed64double_ = value;
+}
+
+// optional fixed32 fixed32Float = 3;
+inline bool ParserEntry::has_fixed32float() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline void ParserEntry::clear_fixed32float() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.fixed32float_ = 0u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline ::uint32_t ParserEntry::fixed32float() const {
+  // @@protoc_insertion_point(field_get:Sample.ParserEntry.fixed32Float)
+  return _internal_fixed32float();
+}
+inline void ParserEntry::set_fixed32float(::uint32_t value) {
+  _internal_set_fixed32float(value);
+  // @@protoc_insertion_point(field_set:Sample.ParserEntry.fixed32Float)
+}
+inline ::uint32_t ParserEntry::_internal_fixed32float() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.fixed32float_;
+}
+inline void ParserEntry::_internal_set_fixed32float(::uint32_t value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.fixed32float_ = value;
 }
 
 #ifdef __GNUC__
