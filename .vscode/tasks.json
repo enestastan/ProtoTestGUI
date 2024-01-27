@@ -1,0 +1,21 @@
+{
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "CMake Build",
+      "command": "cmake --build ./build --target all -j8",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceFolder}/CppProtoParser",
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+    }
+  ],
+  "version": "2.0.0"
+}
