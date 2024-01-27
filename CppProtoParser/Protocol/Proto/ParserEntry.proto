@@ -4,8 +4,9 @@ package Sample;
 // [END declaration]
 
 message ParserEntry {
-  optional int32 varintInteger = 1;
-  optional fixed64 fixed64Double = 2;
-  optional string lenString = 3;
-  optional fixed32 fixed32Float = 4;
+  optional int32 value1 = 1;
+  optional int32 value2 = 2;
+  optional int32 value3 = 3;
+  optional int32 value4 = 4;
+  optional int32 value5 = 5;
 }
