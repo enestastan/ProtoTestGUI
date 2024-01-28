@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package TestMessages;
+
+enum TestEnum {
+  VALUE_0 = 0;
+  VALUE_1 = 1;
+  VALUE_2 = 2;
+  VALUE_3 = 3;
+  VALUE_4 = 4;
+}
+
+message VarintTypes {
+  optional int32 TestInt32 = 1;
+  optional int64 TestInt64 = 2;
+  optional uint32 TestUint32 = 3;
+  optional uint64 TestUint64 = 4;
+  optional sint32 TestSint32 = 5;
+  optional sint64 TestSint64 = 6;
+  optional bool TestBool = 7;
+  TestEnum testEnum = 8;
+}
+
+
+message ParserEntry {
+  optional int32 value1 = 1;
+  optional int32 value2 = 2;
+  optional int32 value3 = 3;
+  optional int32 value4 = 4;
+  optional int32 value5 = 5;
+}
