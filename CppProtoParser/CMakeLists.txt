@@ -239,3 +239,10 @@ protobuf_generate(
 # 		WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
 # 	)
 # endif()
+
+if(PROJECT_IS_TOP_LEVEL OR NOT has_parent_dir)
+	add_custom_target(gen_fds_${PROJECT_NAME} ALL
+		COMMAND bash -c "protoc -I ../Protocol/Proto -o ./outputs/arm64/binary/my_fds.pb ../Protocol/Proto/TestMessages.proto" VERBATIM
+		WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
+	)
+endif()
