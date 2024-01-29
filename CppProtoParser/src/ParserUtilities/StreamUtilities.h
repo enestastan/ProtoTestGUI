@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <map>
 
-class Utilities {
+class StreamUtilities {
  public:
 	enum class EncodingTypes : u_int8_t {
 		VARINT = 0,
@@ -22,7 +22,7 @@ class Utilities {
 	static const uint8_t ENCODING_TYPE_BIT_LENGTH = 3;
 };
 
-uint8_t Utilities::parseVarint(uint8_t* buffer, size_t& result) {
+uint8_t StreamUtilities::parseVarint(uint8_t* buffer, size_t& result) {
 	std::vector<uint8_t> byteList;
 
 	uint8_t offset = 0;
@@ -44,11 +44,11 @@ uint8_t Utilities::parseVarint(uint8_t* buffer, size_t& result) {
 	return offset;
 }
 
-size_t Utilities::getFieldNumber(const size_t fieldVarint) {
+size_t StreamUtilities::getFieldNumber(const size_t fieldVarint) {
 	return fieldVarint >> ENCODING_TYPE_BIT_LENGTH;
 }
 
-Utilities::EncodingTypes Utilities::getFieldEncodeType(const size_t fieldVarint) {
+StreamUtilities::EncodingTypes StreamUtilities::getFieldEncodeType(const size_t fieldVarint) {
 	static const std::map<uint8_t, EncodingTypes> encodingTypeMap{
 			std::make_pair(0, EncodingTypes::VARINT),
 			std::make_pair(1, EncodingTypes::I64),
@@ -60,6 +60,6 @@ Utilities::EncodingTypes Utilities::getFieldEncodeType(const size_t fieldVarint)
 	if (std::any_of(encodingTypeMap.cbegin(), encodingTypeMap.cend(), [&](const auto& pair) { return pair.first == typeAsInt; })) {
 		return encodingTypeMap.at(typeAsInt);
 	} else {
-		return Utilities::EncodingTypes::INVALID;
+		return StreamUtilities::EncodingTypes::INVALID;
 	}
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "ParserUtilities/Utilities.h"
+#include "ParserUtilities/StreamUtilities.h"
 #include "TestMessages.pb.h"
 
 static const int32_t BUFFER_SIZE = 100;
@@ -27,7 +27,7 @@ static bool TestVarintTypes() {
 
 	size_t msgSize = 0;
 	while (msgSize != message.ByteSizeLong()) {
-		msgSize += Utilities::parseVarint(buffer + msgSize, varintValue);
+		msgSize += StreamUtilities::parseVarint(buffer + msgSize, varintValue);
 		if (isFieldNumber) {
 			fprintf(stderr, "%zd: ", ssize_t(varintValue >> 3));
 		} else {
