@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 	google::protobuf::compiler::SourceTreeDescriptorDatabase sourceTreeDatabase(&sourceTree);
 
 	google::protobuf::FileDescriptorProto testMessagesFd;
-	sourceTreeDatabase.FindFileByName("TestMessages.proto", &testMessagesFd);
+	sourceTreeDatabase.FindFileByName("descriptor.proto", &testMessagesFd);
 	UnixSocketServer socketConnection(SOCKET_PATH);
 
 	if (!socketConnection.initialize()) {
