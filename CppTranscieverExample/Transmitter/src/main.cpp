@@ -1,44 +1,64 @@
-#include "UnixSocket/UnixSocketServer.h"
-
+#include <fcntl.h>
+#include <google/protobuf/compiler/importer.h>
 #include <stdio.h>
-#include "addressbook.pb.h"
-#include <google/protobuf/util/time_util.h>
-#include <fstream>
-#include <iostream>
-#include <string>
+
+#include "UnixSocket/UnixSocketServer.h"
 
 using namespace std;
 
-using google::protobuf::util::TimeUtil;
-
 static const char* SOCKET_PATH = "/tmp/mysocket";
 
-int main(int argc, char* argv[]) {
+void printProtoFile(google::protobuf::FileDescriptorProto& protoDescriptor) {
+	std::cerr << "syntax = " << protoDescriptor.syntax().c_str() << std::endl;
+	std::cerr << std::endl;
 
-	printf("Hello Transmitter!\n");
+	std::cerr << "package = " << protoDescriptor.package().c_str() << std::endl;
+	std::cerr << std::endl;
 
-  UnixSocketServer socketConnection(SOCKET_PATH);
+	for (int i = 0; i < protoDescriptor.enum_type_size(); i++) {
+		const google::protobuf::EnumDescriptorProto& enumm = protoDescriptor.enum_type(i);
+		std::cerr << enumm.name().c_str() << " {" << std::endl;
 
-  if(!socketConnection.initialize()) {
-    printf("Socket init failed!\n");
-    return -1;
-  }
+		for (int j = 0; j < enumm.value_size(); j++) {
+			std::cerr << "\t" << enumm.value(j).name().c_str() << " = " << enumm.value(j).number() << ";" << std::endl;
+		}
 
-  socketConnection.acceptConnection();
-
-	tutorial::AddressBook address_book;
-
-	{
-    // Read the existing address book.
-    fstream input(argv[1], ios::in | ios::binary);
-    if (!address_book.ParseFromIstream(&input)) {
-      cerr << "Failed to parse address book." << endl;
-      return -1;
-    }
+		std::cerr << "}" << std::endl;
+		std::cerr << std::endl;
 	}
 
-  uint8_t uBuffer[address_book.ByteSizeLong()];
-  address_book.SerializeToArray(uBuffer, address_book.ByteSizeLong());
-  socketConnection.send((uint8_t*)uBuffer, sizeof(uBuffer));
+	for (int i = 0; i < protoDescriptor.message_type_size(); i++) {
+		const google::protobuf::DescriptorProto& msg = protoDescriptor.message_type(i);
+		std::cerr << msg.name().c_str() << " {" << std::endl;
+
+		for (int j = 0; j < msg.field_size(); j++) {
+			std::cerr << "\t" << msg.field(j).type_name() << " " << msg.field(j).name() << " = " << msg.field(j).number() << ";" << std::endl;
+		}
+
+		std::cerr << "}" << std::endl;
+		std::cerr << std::endl;
+	}
+}
+
+int main(int argc, char* argv[]) {
+	google::protobuf::compiler::DiskSourceTree sourceTree;
+	sourceTree.MapPath("", "../../../../Protocol/Proto");
+	google::protobuf::compiler::SourceTreeDescriptorDatabase sourceTreeDatabase(&sourceTree);
+
+	google::protobuf::FileDescriptorProto testMessagesFd;
+	sourceTreeDatabase.FindFileByName("TestMessages.proto", &testMessagesFd);
+	UnixSocketServer socketConnection(SOCKET_PATH);
+
+	if (!socketConnection.initialize()) {
+		printf("Socket init failed!\n");
+		return -1;
+	}
+
+	socketConnection.acceptConnection();
+
+	uint8_t uBuffer[testMessagesFd.ByteSizeLong()];
+	testMessagesFd.SerializeToArray(uBuffer, testMessagesFd.ByteSizeLong());
+
+	socketConnection.send((uint8_t*)uBuffer, testMessagesFd.ByteSizeLong());
 	return 0;
 }
