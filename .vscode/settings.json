@@ -1,5 +1,5 @@
 {
-	"cmake.sourceDirectory": "${workspaceFolder}/CppProtoParser",
+	"cmake.sourceDirectory": "${workspaceFolder}/CppTranscieverExample",
 	"files.associations": {
 		"algorithm": "cpp",
 		"cctype": "cpp",
