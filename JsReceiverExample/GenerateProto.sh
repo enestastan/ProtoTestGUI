@@ -1,0 +1,1 @@
+protoc -I=Protocol/Proto/ --js_out=import_style=commonjs,binary:Protocol/Generated Protocol/Proto/*.proto

@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 	google::protobuf::compiler::SourceTreeDescriptorDatabase sourceTreeDatabase(&sourceTree);
 
 	google::protobuf::FileDescriptorProto testMessagesFd;
-	sourceTreeDatabase.FindFileByName("descriptor.proto", &testMessagesFd);
+	sourceTreeDatabase.FindFileByName("TestMessages.proto", &testMessagesFd);
 	UnixSocketServer socketConnection(SOCKET_PATH);
 
 	if (!socketConnection.initialize()) {
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
 
 	uint8_t uBuffer[testMessagesFd.ByteSizeLong()];
 	testMessagesFd.SerializeToArray(uBuffer, testMessagesFd.ByteSizeLong());
-
+	std::cout << "Message size: " << testMessagesFd.ByteSizeLong() << std::endl;
 	socketConnection.send((uint8_t*)uBuffer, testMessagesFd.ByteSizeLong());
 	return 0;
 }
