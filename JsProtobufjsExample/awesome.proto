@@ -1,0 +1,22 @@
+// awesome.proto
+syntax = "proto3";
+package awesomepackage;
+
+enum CustomEnum {
+    VALUE0 = 0;
+    VALUE1 = 1;
+    VALUE2 = 2;
+    VALUE3 = 3;
+}
+
+message AwesomeMessage {
+    optional string awesome_field = 1; // becomes awesomeField
+    optional sint32 signedInteger32 = 2; // becomes awesomeField
+    optional SecondMessage secondMessage = 3;
+}
+
+message SecondMessage {
+    optional fixed64 fixedField64 = 1;
+    optional CustomEnum enummm = 2;
+    repeated int32 arrayField = 3;
+}
